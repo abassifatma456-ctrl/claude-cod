@@ -1,0 +1,5 @@
+node_modules/
+out/
+# Third-party source material (lecture audio/video) stays local, not in git.
+assets/
+public/audio.wav

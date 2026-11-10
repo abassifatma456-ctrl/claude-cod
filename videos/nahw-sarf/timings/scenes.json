@@ -1,0 +1,233 @@
+{
+  "_info": "Einzige Timing-Quelle. Alle Zeiten in Sekunden. Werte hier anpassen, kein Komponenten-Code nötig. Quelle: Whisper (timings/words.json), Wortanfänge mit Sprechpausen (silencedetect) verfeinert. Untertitel: _Wort_ wird kursiv gesetzt (Umschrift nach Hans Wehr).",
+  "audio": "audio.wav",
+  "audioEnd": 72.45,
+  "outro": 5.5,
+  "transition": 0.4,
+  "scenes": [
+    {
+      "id": "s1_titel",
+      "start": 0.0,
+      "end": 2.52,
+      "first": "فرق بين النحو والصرف"
+    },
+    {
+      "id": "s2_nahw",
+      "start": 2.52,
+      "end": 10.52,
+      "first": "النحو الله يسلمكم يتعلق"
+    },
+    {
+      "id": "s3_allah",
+      "start": 10.52,
+      "end": 22.04,
+      "first": "يقول الله، إن الله، أفي الله شك"
+    },
+    {
+      "id": "s4_ilm_nahw",
+      "start": 22.04,
+      "end": 29.1,
+      "first": "اختلفت حركة الحرف الأخير"
+    },
+    {
+      "id": "s5_sarf",
+      "start": 29.1,
+      "end": 42.64,
+      "first": "علم الصرف يتعلق ببنية الكلمة"
+    },
+    {
+      "id": "s6_yasmau",
+      "start": 42.64,
+      "end": 52.08,
+      "first": "طيب يسمع وزنها يفعل"
+    },
+    {
+      "id": "s7_skala",
+      "start": 52.08,
+      "end": 61.0,
+      "first": "فلا بد لطالب القرآن"
+    },
+    {
+      "id": "s8_warnung",
+      "start": 61.0,
+      "end": 70.5,
+      "first": "من كان حاله كذلك قد يخطئ"
+    },
+    {
+      "id": "s9_tatbiq",
+      "start": 70.5,
+      "end": 77.95,
+      "first": "فانتبهوا لذلك بارك الله فيكم"
+    }
+  ],
+  "cues": {
+    "s1_nahw": 0.32,
+    "s1_sarf": 0.6,
+    "s2_satz": 2.52,
+    "s2_endungen": 5.32,
+    "s2_position": 8.36,
+    "s3_damma": 10.82,
+    "s3_fatha": 13.25,
+    "s3_kasra": 14.9,
+    "s3_lafz": 16.76,
+    "s3_recap_damma": 18.56,
+    "s3_recap_fatha": 19.92,
+    "s3_recap_kasra": 20.98
+  },
+  "credit": {
+    "start": 0.4,
+    "end": 8.0
+  },
+  "subtitles": [
+    {
+      "start": 0.0,
+      "end": 2.52,
+      "text": "Der Unterschied zwischen _Naḥw_ und _Ṣarf_ – etwas ausführlicher:"
+    },
+    {
+      "start": 2.52,
+      "end": 4.29,
+      "text": "Der _Naḥw_ – Allah möge euch bewahren –"
+    },
+    {
+      "start": 4.63,
+      "end": 8.11,
+      "text": "befasst sich mit dem Vokal des letzten Buchstabens eines Wortes,"
+    },
+    {
+      "start": 8.11,
+      "end": 10.08,
+      "text": "je nach seiner Position im Satz."
+    },
+    {
+      "start": 10.52,
+      "end": 11.85,
+      "text": "„_Yaqūlu llāhu_“ – Allah sagt …"
+    },
+    {
+      "start": 12.82,
+      "end": 13.96,
+      "text": "„_Inna llāha_“ – Wahrlich, Allah …"
+    },
+    {
+      "start": 14.68,
+      "end": 16.39,
+      "text": "„_A-fī llāhi šakk?_“ – Gibt es denn über Allah einen Zweifel?"
+    },
+    {
+      "start": 16.76,
+      "end": 19.05,
+      "text": "Beim Namen Allahs finden wir am Ende also einmal eine _Ḍamma_,"
+    },
+    {
+      "start": 19.48,
+      "end": 20.6,
+      "text": "einmal eine _Fatḥa_,"
+    },
+    {
+      "start": 20.6,
+      "end": 21.9,
+      "text": "einmal eine _Kasra_."
+    },
+    {
+      "start": 22.04,
+      "end": 24.84,
+      "text": "Der Vokal des letzten Buchstabens hat sich verändert,"
+    },
+    {
+      "start": 25.2,
+      "end": 27.36,
+      "text": "weil sich die Position des Wortes im Satz verändert hat."
+    },
+    {
+      "start": 27.72,
+      "end": 28.6,
+      "text": "Das ist die Wissenschaft des _Naḥw_."
+    },
+    {
+      "start": 29.1,
+      "end": 32.44,
+      "text": "Die Wissenschaft des _Ṣarf_ befasst sich mit dem Aufbau des arabischen Wortes:"
+    },
+    {
+      "start": 32.72,
+      "end": 34.53,
+      "text": "Entweder sind seine Buchstaben Wurzelbuchstaben:"
+    },
+    {
+      "start": 34.84,
+      "end": 37.57,
+      "text": "_kataba_ – sein _Wazn_ ist _faʿala_,"
+    },
+    {
+      "start": 38.52,
+      "end": 40.77,
+      "text": "_samiʿa_ – sein _Wazn_ ist _faʿila_."
+    },
+    {
+      "start": 41.13,
+      "end": 42.17,
+      "text": "Das sind Wurzelbuchstaben."
+    },
+    {
+      "start": 42.64,
+      "end": 45.58,
+      "text": "Gut – _yasmaʿu_, sein _Wazn_ ist _yafʿalu_."
+    },
+    {
+      "start": 45.75,
+      "end": 47.54,
+      "text": "Seht: Das _Yāʾ_ gehört nicht zur Wurzel des Wortes."
+    },
+    {
+      "start": 47.91,
+      "end": 51.79,
+      "text": "Bei _yafʿalu_ sind immer _Fāʾ_, _ʿAin_ und _Lām_ die Wurzelbuchstaben."
+    },
+    {
+      "start": 52.08,
+      "end": 53.63,
+      "text": "Wer den Qurʾān studiert, muss also –"
+    },
+    {
+      "start": 54.03,
+      "end": 55.92,
+      "text": "ich sage nicht, dass man ein _Sībawaih_ sein muss –"
+    },
+    {
+      "start": 56.31,
+      "end": 58.9,
+      "text": "aber man darf auch nicht völlig bei null stehen"
+    },
+    {
+      "start": 58.9,
+      "end": 61.11,
+      "text": "und gar nichts von _Naḥw_ und _Ṣarf_ wissen."
+    },
+    {
+      "start": 61.42,
+      "end": 63.68,
+      "text": "Wer so dasteht, kann Fehler machen:"
+    },
+    {
+      "start": 64.11,
+      "end": 65.95,
+      "text": "Er bringt womöglich die Leute des Paradieses ins Feuer"
+    },
+    {
+      "start": 65.95,
+      "end": 67.66,
+      "text": "und die Leute des Feuers ins Paradies"
+    },
+    {
+      "start": 68.03,
+      "end": 69.99,
+      "text": "und verdreht Bedeutungen, ohne es zu merken."
+    },
+    {
+      "start": 70.5,
+      "end": 72.45,
+      "text": "Achtet also darauf – Allah segne euch."
+    }
+  ]
+}
