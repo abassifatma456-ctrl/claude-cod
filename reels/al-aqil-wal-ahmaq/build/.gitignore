@@ -1,0 +1,4 @@
+node_modules/
+*.wav
+fonttest.html
+package-lock.json

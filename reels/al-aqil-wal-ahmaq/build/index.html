@@ -1,0 +1,407 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Reel Animation</title>
+<style>
+@font-face{font-family:Sch;font-weight:700;src:url(node_modules/@fontsource/scheherazade-new/files/scheherazade-new-arabic-700-normal.woff2)}
+@font-face{font-family:Ruqaa;font-weight:700;src:url(node_modules/@fontsource/aref-ruqaa/files/aref-ruqaa-arabic-700-normal.woff2)}
+@font-face{font-family:Tr;font-style:italic;src:url(node_modules/@fontsource/amiri/files/amiri-latin-ext-400-italic.woff2);unicode-range:U+0100-02FF,U+1E00-1EFF}
+@font-face{font-family:Tr;font-style:italic;src:url(node_modules/@fontsource/amiri/files/amiri-latin-400-italic.woff2);unicode-range:U+0000-00FF,U+2000-206F}
+@font-face{font-family:Inter;font-weight:600;src:url(node_modules/@fontsource/inter/files/inter-latin-600-normal.woff2);unicode-range:U+0000-00FF,U+2000-206F}
+@font-face{font-family:Inter;font-weight:600;src:url(node_modules/@fontsource/inter/files/inter-latin-ext-600-normal.woff2);unicode-range:U+0100-02FF}
+@font-face{font-family:Inter;font-weight:900;src:url(node_modules/@fontsource/inter/files/inter-latin-900-normal.woff2);unicode-range:U+0000-00FF,U+2000-206F}
+@font-face{font-family:Play;font-weight:700;src:url(node_modules/@fontsource/playfair-display/files/playfair-display-latin-700-normal.woff2)}
+@font-face{font-family:Play;font-weight:700;font-style:italic;src:url(node_modules/@fontsource/playfair-display/files/playfair-display-latin-700-italic.woff2)}
+
+:root{--ink:#1c1712;--green:#2f6b3a;--red:#a8322a;--gold:#b08a3e;--paper:#e8d6b0}
+*{box-sizing:border-box}
+html,body{margin:0;width:1080px;height:1920px;overflow:hidden;background:#000}
+#stage{position:absolute;inset:0;overflow:hidden;background:#d9c49a}
+#bg{position:absolute;inset:-60px;background:url(paper.jpg) center/cover}
+.layer{position:absolute;inset:0}
+.abs{position:absolute}
+.ar{font-family:Sch;font-weight:700;direction:rtl;white-space:nowrap;color:var(--ink);line-height:1.15;padding:.42em .3em}
+.tr{font-family:Tr;font-style:italic;color:#5b4a36;white-space:nowrap}
+.kin{font-family:Play;font-weight:700;color:var(--ink);text-align:center;width:100%;left:0;line-height:1.18}
+.kin .w{display:inline-block;position:relative;margin:0 .12em}
+.de{font-family:Inter;font-weight:600}
+#cap{position:absolute;left:110px;width:860px;top:1390px;text-align:center}
+#cap span{display:inline-block;background:rgba(28,23,18,.86);color:#fbf3e2;font:600 44px/1.3 Inter;
+  padding:14px 28px 16px;border-radius:18px;box-shadow:0 6px 24px rgba(0,0,0,.18)}
+.stamp{font:900 64px/1 Inter;letter-spacing:.06em;text-transform:uppercase;padding:14px 26px 12px;border:7px solid currentColor;border-radius:14px;background:rgba(240,226,196,.55)}
+.slip{font:700 italic 40px/1.1 Play;color:var(--ink);background:#f3e7c9;padding:14px 22px;border-radius:6px;
+  box-shadow:0 8px 18px rgba(60,40,10,.22);white-space:nowrap}
+.label{font:600 34px/1 Inter;letter-spacing:.22em;text-transform:uppercase;text-align:center;width:100%;left:0}
+svg{overflow:visible}
+#cover{position:absolute;inset:0;transform-origin:0 50%;backface-visibility:hidden;
+  background:radial-gradient(ellipse at 40% 40%,#5a3622,#2e1a10 70%);box-shadow:inset 0 0 120px rgba(0,0,0,.6)}
+#cover .frame{position:absolute;inset:60px;border:4px solid #b08a3e;border-radius:10px;box-shadow:inset 0 0 0 14px transparent,inset 0 0 0 18px rgba(176,138,62,.6)}
+#cover .title{position:absolute;left:0;right:0;top:820px;text-align:center;font:700 150px/1 Ruqaa;color:#c9a457;direction:rtl}
+#black{position:absolute;inset:0;background:#000}
+</style>
+</head>
+<body>
+<div id="stage">
+  <div id="bg"></div>
+  <div id="world" class="layer">
+    <!-- HOOK -->
+    <div id="hook" class="layer">
+      <div id="ghost" class="abs ar" style="left:0;width:1080px;text-align:center;top:1440px;font-size:70px;opacity:.10;filter:blur(5px)">الْعَاقِلُ إِذَا أَخْطَأَ تَأَسَّفَ</div>
+      <div id="h1" class="abs kin" style="top:470px;font-size:104px"></div>
+      <div id="h2" class="abs kin" style="top:880px;font-size:80px"></div>
+      <div id="h3" class="abs kin" style="top:1150px;font-size:80px"></div>
+      <svg id="hsvg" class="abs" style="left:0;top:0" width="1080" height="1920"></svg>
+    </div>
+    <!-- PROVERB -->
+    <div id="prov" class="layer">
+      <div id="p1" class="abs ar" style="top:560px;font-size:100px"></div>
+      <div id="t1" class="abs tr" style="top:740px;font-size:44px;width:1080px;left:0;text-align:center">al-ʿāqilu iḏā aḵṭaʾa taʾassafa</div>
+      <div id="p2" class="abs ar" style="top:860px;font-size:100px"></div>
+      <div id="t2" class="abs tr" style="top:1040px;font-size:44px;width:1080px;left:0;text-align:center">wa-l-aḥmaqu iḏā aḵṭaʾa tafalsafa</div>
+      <svg id="psvg" class="abs" style="left:0;top:0" width="1080" height="1920"></svg>
+    </div>
+    <!-- SPLIT / KLANG / FINALE (shared big words) -->
+    <div id="split" class="layer">
+      <div id="labTop" class="abs label" style="top:250px;color:var(--green)">Der Vernünftige</div>
+      <div id="labBot" class="abs label" style="top:930px;color:var(--red)">Der Törichte</div>
+      <svg id="ssvg" class="abs" style="left:0;top:0" width="1080" height="1920"></svg>
+      <div id="stampDone" class="abs stamp" style="color:var(--green);left:600px;top:640px">Fertig.</div>
+      <div id="slips" class="layer"></div>
+      <div id="stamps" class="layer"></div>
+    </div>
+    <div id="wA" class="abs ar" style="font-size:170px;color:var(--green)">تَأَسَّفَ</div>
+    <div id="wB" class="abs ar" style="font-size:170px;color:var(--red)">تَفَلْسَفَ</div>
+    <div id="trA" class="abs tr" style="font-size:54px">taʾas<b>safa</b></div>
+    <div id="trB" class="abs tr" style="font-size:54px">tafal<b>safa</b></div>
+    <div id="labA" class="abs label" style="color:var(--green);font-size:40px">Einsicht</div>
+    <div id="labB" class="abs label" style="color:var(--red);font-size:40px">Ausrede</div>
+    <svg id="ksvg" class="abs" style="left:0;top:0" width="1080" height="1920"></svg>
+    <div id="dust" class="layer"></div>
+    <!-- CTA -->
+    <div id="cta" class="layer">
+      <div id="cp1" class="abs ar" style="top:290px;left:0;width:1080px;text-align:center;font-size:72px">الْعَاقِلُ إِذَا أَخْطَأَ تَأَسَّفَ</div>
+      <div id="cp2" class="abs ar" style="top:420px;left:0;width:1080px;text-align:center;font-size:72px">وَالْأَحْمَقُ إِذَا أَخْطَأَ تَفَلْسَفَ</div>
+      <div id="ctaLine" class="abs kin" style="top:690px;font-size:74px">Nicht nur übersetzen –<br><span style="color:var(--green)">verstehen.</span></div>
+      <div id="follow" class="abs" style="left:300px;top:1000px;width:480px;height:124px;border-radius:62px;background:var(--ink);color:#fbf3e2;
+        font:900 54px/124px Inter;text-align:center;box-shadow:0 14px 30px rgba(40,25,10,.3)"><span id="followTxt">+ Folgen</span></div>
+      <div id="ctaSub" class="abs kin" style="top:1185px;font-size:46px;font-style:italic;color:#5b4a36">für mehr Sprichwörter</div>
+    </div>
+    <!-- OUTRO -->
+    <div id="outro" class="layer">
+      <div id="salam" class="abs" style="top:630px;left:0;width:1080px;text-align:center;font:700 150px/1.3 Ruqaa;direction:rtl;color:var(--ink);padding:.3em 0">وَالسَّلَامُ عَلَيْكُمْ</div>
+      <div id="salamTr" class="abs tr" style="top:950px;left:0;width:1080px;text-align:center;font-size:50px">wa-s-salāmu ʿalaikum</div>
+    </div>
+  </div>
+  <svg id="ink" class="abs" style="left:0;top:0" width="1080" height="1920"></svg>
+  <div id="cap"><span></span></div>
+  <div id="cover"><div class="frame"></div><div class="title">حِكْمَة</div></div>
+  <div id="black"></div>
+</div>
+<svg width="0" height="0" style="position:absolute">
+  <filter id="dissolve" x="-30%" y="-60%" width="160%" height="220%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="4" result="n"/>
+    <feDisplacementMap id="dmap" in="SourceGraphic" in2="n" scale="0" xChannelSelector="R" yChannelSelector="G" result="d"/>
+    <feGaussianBlur id="dblur" in="d" stdDeviation="0"/>
+  </filter>
+</svg>
+<script>
+const $ = id => document.getElementById(id);
+const NS = 'http://www.w3.org/2000/svg';
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const lerp = (a, b, p) => a + (b - a) * p;
+const Ease = {
+  lin: x => x,
+  out: x => 1 - Math.pow(1 - x, 3),
+  inO: x => x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2,
+  back: x => { const c = 1.9; return 1 + (c + 1) * Math.pow(x - 1, 3) + c * Math.pow(x - 1, 2); },
+  in: x => x * x * x,
+};
+// progress of t inside [a,b]
+const P = (t, a, b, e = Ease.out) => e(clamp((t - a) / (b - a)));
+// fade in at a..a+fi, out at b..b+fo
+const win = (t, a, b, fi = .3, fo = .3) => Math.min(P(t, a, a + fi), 1 - P(t, b, b + fo));
+
+function rng(seed) { return () => { seed |= 0; seed = seed + 0x6D2B79F5 | 0; let t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+
+function svgEl(parent, tag, attrs) { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); parent.appendChild(e); return e; }
+function setDraw(path, p) { const L = path._len || (path._len = path.getTotalLength()); path.style.strokeDasharray = L; path.style.strokeDashoffset = L * (1 - p); path.style.opacity = p > 0 ? 1 : 0; }
+// hand-drawn ellipse around a rect
+function roughEllipse(cx, cy, rx, ry, r) {
+  let d = ''; const n = 48;
+  for (let i = 0; i <= n + 6; i++) { const a = -Math.PI * .6 + i / n * Math.PI * 2; const k = 1 + (r() - .5) * .06 + i / n * .05;
+    const x = cx + Math.cos(a) * rx * k, y = cy + Math.sin(a) * ry * k; d += (i ? 'L' : 'M') + x.toFixed(1) + ' ' + y.toFixed(1); }
+  return d;
+}
+function wobblyLine(x1, y1, x2, y2, r, amp = 4) {
+  let d = `M${x1} ${y1}`; const n = 24;
+  for (let i = 1; i <= n; i++) { const p = i / n; d += `L${lerp(x1, x2, p).toFixed(1)} ${(lerp(y1, y2, p) + (r() - .5) * amp).toFixed(1)}`; }
+  return d;
+}
+
+/* ---------------- build ---------------- */
+const words = (el, list) => { el.innerHTML = ''; return list.map(([txt, cls]) => { const s = document.createElement('span'); s.className = 'w ' + (cls || ''); s.textContent = txt; el.appendChild(s); el.appendChild(document.createTextNode(' ')); return s; }); };
+
+// hook kinetic words with their spoken start times
+const H1 = words($('h1'), [['Woran'], ['erkennst'], ['du'], ['einen'], ['klugen'], ['Menschen?']]);
+$('h1').insertBefore(document.createElement('br'), H1[3]);
+const H1T = [0.0, 0.44, 0.92, 1.04, 1.26, 1.76];
+H1[4].style.color = 'var(--green)';
+const H2 = words($('h2'), [['Nicht'], ['daran,'], ['dass'], ['er'], ['keine'], ['Fehler'], ['macht,']]);
+$('h2').insertBefore(document.createElement('br'), H2[4]);
+const H2T = [2.92, 3.22, 3.9, 4.02, 4.16, 4.38, 4.7];
+const H3 = words($('h3'), [['sondern'], ['daran,'], ['was'], ['er'], ['danach'], ['tut.']]);
+$('h3').insertBefore(document.createElement('br'), H3[2]);
+const H3T = [5.42, 5.82, 6.48, 6.76, 6.9, 7.1];
+
+// Arabic lines built from word spans so single words can be coloured / circled
+function arLine(el, ws) { el.innerHTML = ''; return ws.map((w, i) => { const s = document.createElement('span'); s.textContent = w; s.style.display = 'inline-block'; el.appendChild(s); if (i < ws.length - 1) el.appendChild(document.createTextNode(' ')); return s; }); }
+const L1 = arLine($('p1'), ['الْعَاقِلُ', 'إِذَا', 'أَخْطَأَ', 'تَأَسَّفَ']);
+const L2 = arLine($('p2'), ['وَالْأَحْمَقُ', 'إِذَا', 'أَخْطَأَ', 'تَفَلْسَفَ']);
+
+// slips (excuses) for the fool
+const SLIPS = [
+  ['eigentlich …', 34.44, 120, 1215, -8], ['ja, aber …', 34.8, 640, 1225, 7], ['technisch gesehen …', 35.12, 80, 1050, 5],
+  ['kommt drauf an …', 35.45, 600, 1065, -6], ['so war das nicht gemeint', 36.0, 170, 1300, 4], ['die anderen auch!', 36.5, 610, 1310, -9],
+  ['wenn man’s genau nimmt …', 36.96, 260, 985, -3], ['?!', 37.4, 900, 1150, 12],
+];
+const slipEls = SLIPS.map(([txt, , x, y, rot]) => { const d = document.createElement('div'); d.className = 'abs slip'; d.textContent = txt; d.style.left = x + 'px'; d.style.top = y + 'px'; d._rot = rot; $('slips').appendChild(d); return d; });
+const STAMPS = [['Rechtfertigen', 38.6, 150, 1010, -7], ['verdrehen', 39.66, 420, 1160, 5], ['schönreden', 40.46, 220, 1300, -4]];
+const stampEls = STAMPS.map(([txt, , x, y, rot]) => { const d = document.createElement('div'); d.className = 'abs stamp'; d.style.color = 'var(--red)'; d.textContent = txt; d.style.left = x + 'px'; d.style.top = y + 'px'; d._rot = rot; $('stamps').appendChild(d); return d; });
+
+// ink dust particles for the dissolve
+const R = rng(11);
+const dust = Array.from({ length: 46 }, () => { const d = document.createElement('div'); d.className = 'abs'; const s = 4 + R() * 12; Object.assign(d.style, { width: s + 'px', height: s + 'px', borderRadius: '50%', background: 'var(--red)' }); $('dust').appendChild(d); return { el: d, ox: (R() - .5) * 520, oy: (R() - .5) * 120, vx: 80 + R() * 260, vy: -60 - R() * 260, d: R() * .35 }; });
+
+// ink blot for transition
+const blotR = rng(5);
+const inkDefs = svgEl($('ink'), 'defs', {});
+const inkF = svgEl(inkDefs, 'filter', { id: 'inkEdge', x: '-50%', y: '-50%', width: '200%', height: '200%' });
+svgEl(inkF, 'feTurbulence', { type: 'fractalNoise', baseFrequency: '0.012', numOctaves: 3, seed: 8, result: 'n' });
+svgEl(inkF, 'feDisplacementMap', { in: 'SourceGraphic', in2: 'n', scale: 90, xChannelSelector: 'R', yChannelSelector: 'G' });
+const blotOuter = svgEl($('ink'), 'g', { filter: 'url(#inkEdge)' });
+const blotG = svgEl(blotOuter, 'g', {});
+svgEl(blotG, 'circle', { cx: 0, cy: 0, r: 300, fill: '#15110d' });
+for (let i = 0; i < 22; i++) { const a = blotR() * Math.PI * 2, r = 320 + blotR() * 160; svgEl(blotG, 'circle', { cx: Math.cos(a) * r, cy: Math.sin(a) * r, r: 6 + blotR() * 34, fill: '#15110d' }); }
+
+let G = {}; // geometry measured after fonts load
+function measure() {
+  const sr = $('stage').getBoundingClientRect();
+  const rect = el => { const r = el.getBoundingClientRect(); return { x: r.left - sr.left, y: r.top - sr.top, w: r.width, h: r.height, cx: r.left - sr.left + r.width / 2, cy: r.top - sr.top + r.height / 2 }; };
+  // center arabic lines
+  for (const id of ['p1', 'p2']) { const e = $(id); e.style.left = ((1080 - e.offsetWidth) / 2) + 'px'; }
+  G.L1 = L1.map(rect); G.L2 = L2.map(rect);
+  for (const id of ['wA', 'wB', 'trA', 'trB']) { const e = $(id); G[id] = { w: e.offsetWidth, h: e.offsetHeight }; }
+  // hook strike-through / underline
+  const f = rect(H2[5]), dn = rect(H3[4]); const r = rng(3);
+  G.strike = svgEl($('hsvg'), 'path', { d: wobblyLine(f.x - 8, f.cy + 4, f.x + f.w + 8, f.cy - 2, r, 5), stroke: 'var(--red)', 'stroke-width': 9, fill: 'none', 'stroke-linecap': 'round' });
+  G.under = svgEl($('hsvg'), 'path', { d: wobblyLine(dn.x - 4, dn.y + dn.h + 2, dn.x + dn.w + 6, dn.y + dn.h - 2, r, 6), stroke: 'var(--green)', 'stroke-width': 10, fill: 'none', 'stroke-linecap': 'round' });
+  // circles around both أخطأ
+  const c1 = G.L1[2], c2 = G.L2[2]; const rc = rng(9);
+  G.circ1 = svgEl($('psvg'), 'path', { d: roughEllipse(c1.cx, c1.cy + 10, c1.w * .68, c1.h * .52, rc), stroke: 'var(--red)', 'stroke-width': 7, fill: 'none', 'stroke-linecap': 'round' });
+  G.circ2 = svgEl($('psvg'), 'path', { d: roughEllipse(c2.cx, c2.cy + 10, c2.w * .68, c2.h * .52, rc), stroke: 'var(--red)', 'stroke-width': 7, fill: 'none', 'stroke-linecap': 'round' });
+  // split divider and check mark
+  const rs = rng(21);
+  G.divider = svgEl($('ssvg'), 'path', { d: wobblyLine(90, 870, 990, 872, rs, 5), stroke: 'var(--ink)', 'stroke-width': 5, fill: 'none', 'stroke-linecap': 'round', opacity: .7 });
+  G.check = svgEl($('ssvg'), 'path', { d: 'M330 690 L392 752 L520 600', stroke: 'var(--green)', 'stroke-width': 18, fill: 'none', 'stroke-linecap': 'round', 'stroke-linejoin': 'round' });
+  // vertical "worlds apart" double arrow
+  G.arrow = svgEl($('ksvg'), 'path', { d: 'M540 700 L540 1000 M515 730 L540 700 L565 730 M515 970 L540 1000 L565 970', stroke: 'var(--gold)', 'stroke-width': 6, fill: 'none', 'stroke-linecap': 'round', 'stroke-linejoin': 'round' });
+}
+
+// place a big word with its centre at (cx,cy)
+function place(el, cx, cy, s = 1, op = 1, extra = '') {
+  const g = G[el.id] || { w: el.offsetWidth, h: el.offsetHeight };
+  el.style.left = (cx - g.w / 2) + 'px'; el.style.top = (cy - g.h / 2) + 'px';
+  el.style.transform = `scale(${s}) ${extra}`; el.style.opacity = op;
+}
+const show = (el, o) => { el.style.opacity = o; el.style.visibility = o > 0.001 ? 'visible' : 'hidden'; };
+const rtlMask = (el, p, soft = 10) => { const a = p * (100 + soft); const m = `linear-gradient(to left, #000 ${a - soft}%, transparent ${a}%)`; el.style.webkitMaskImage = m; el.style.maskImage = m; };
+
+/* ---------------- captions ---------------- */
+const CAPS = [
+  [15.24, 19.4, 'Der Vernünftige – wenn er einen Fehler macht – bereut.'],
+  [20.12, 24.3, 'Der Törichte – wenn er einen Fehler macht – fängt an zu philosophieren.'],
+  [24.84, 26.95, 'Beide machen Fehler. Das ist der Punkt.'],
+  [27.0, 29.85, 'Der Unterschied liegt nur in der Reaktion.'],
+  [30.28, 31.55, 'Der Kluge sagt:'],
+  [31.6, 33.3, '„Ich lag falsch.“ Fertig.'],
+  [33.68, 36.3, 'Der Idiot baut eine ganze Theorie,'],
+  [36.46, 38.0, 'warum er eigentlich recht hatte.'],
+  [41.7, 42.75, 'Und hör auf den Klang:'],
+  [45.38, 46.6, 'Fast dasselbe Wort.'],
+  [46.96, 50.4, 'Und trotzdem liegen Welten zwischen Einsicht und Ausrede.'],
+  [50.5, 54.05, 'Also: Wenn du das nächste Mal falsch liegst –'],
+  [54.3, 55.3, 'kurz zugeben.'],
+  [55.66, 56.95, 'Nicht philosophieren.'],
+  [57.24, 60.95, 'Hinter arabischen Sprichwörtern steckt mehr als nur die Übersetzung.'],
+  [61.46, 63.0, 'Wenn du sie wirklich verstehen willst –'],
+  [63.32, 65.4, 'folg uns und komm wieder.'],
+  [65.84, 67.1, 'Bis zum nächsten Spruch.'],
+];
+let capIdx = -2;
+function renderCaption(t) {
+  const i = CAPS.findIndex(([a, b]) => t >= a - .05 && t < b + .18);
+  const cap = $('cap'), sp = cap.firstChild;
+  if (i !== capIdx) { capIdx = i; sp.textContent = i >= 0 ? CAPS[i][2] : ''; }
+  if (i < 0) { cap.style.opacity = 0; return; }
+  const [a, b] = CAPS[i]; const o = win(t, a - .05, b, .14, .18);
+  cap.style.opacity = o; cap.style.transform = `translateY(${(1 - P(t, a - .05, a + .2)) * 16}px)`;
+}
+
+/* ---------------- render ---------------- */
+function wordIn(el, t, t0, dur = .3) { const p = P(t, t0, t0 + dur); el.style.opacity = p; el.style.transform = `translateY(${(1 - p) * 26}px)`; el.style.filter = `blur(${(1 - p) * 6}px)`; }
+
+window.renderAt = function (t) {
+  // camera: punch-in at start, slow breathing drift afterwards
+  const punch = 1.08 - .08 * P(t, 0, 1.1);
+  const drift = 1 + .015 * Math.sin(t / 6);
+  $('world').style.transform = `scale(${punch * drift})`;
+  $('bg').style.transform = `scale(${1.04 * drift}) translate(${Math.sin(t / 9) * 8}px, ${Math.cos(t / 11) * 8}px)`;
+
+  /* HOOK 0 – 8.1 */
+  const hookO = 1 - P(t, 7.7, 8.0);
+  show($('hook'), hookO);
+  if (hookO > 0) {
+    H1.forEach((w, i) => wordIn(w, t, H1T[i]));
+    H2.forEach((w, i) => wordIn(w, t, H2T[i]));
+    H3.forEach((w, i) => wordIn(w, t, H3T[i]));
+    $('h1').style.opacity = 1 - .45 * P(t, 2.7, 3.2);
+    $('h2').style.opacity = 1 - .45 * P(t, 5.3, 5.8);
+    setDraw(G.strike, P(t, 4.55, 4.95));
+    setDraw(G.under, P(t, 7.0, 7.35));
+    H2[5].style.color = t > 4.6 ? 'var(--red)' : '';
+    $('ghost').style.opacity = .10 * P(t, 0, 1.5);
+  }
+
+  /* INK TRANSITION 7.5 – 8.6 */
+  const grow = P(t, 7.45, 8.0, Ease.inO), fade = P(t, 8.0, 8.6);
+  const io = t < 7.45 || t > 8.6 ? 0 : 1 - fade;
+  $('ink').style.opacity = io;
+  blotG.setAttribute('transform', `translate(540 900) scale(${.05 + grow * 3.6}) rotate(${grow * 25})`);
+
+  /* PROVERB 8.0 – 30 */
+  const provO = P(t, 8.0, 8.3) * (1 - P(t, 29.3, 29.9));
+  show($('prov'), provO);
+  if (provO > 0) {
+    const r1 = P(t, 8.55, 11.15, Ease.lin), r2 = P(t, 11.76, 14.95, Ease.lin);
+    rtlMask($('p1'), r1); rtlMask($('p2'), r2);
+    $('t1').style.opacity = P(t, 9.2, 10.4); $('t2').style.opacity = P(t, 12.4, 13.6);
+    // colour key words when translated
+    L1[0].style.color = t > 15.6 ? 'var(--green)' : ''; L1[3].style.color = t > 18.5 ? 'var(--green)' : '';
+    L2[0].style.color = t > 20.3 ? 'var(--red)' : ''; L2[3].style.color = t > 23.45 ? 'var(--red)' : '';
+    for (const [w, tt] of [[L1[0], 15.6], [L1[3], 18.5], [L2[0], 20.3], [L2[3], 23.45]]) { const k = Math.sin(clamp((t - tt) / .45) * Math.PI); w.style.transform = `scale(${1 + .12 * k})`; }
+    setDraw(G.circ1, P(t, 24.9, 25.35)); setDraw(G.circ2, P(t, 25.2, 25.65));
+    // dim everything except the two reactions
+    const dim = 1 - .75 * P(t, 27.6, 28.4);
+    [L1[0], L1[1], L1[2], L2[0], L2[1], L2[2]].forEach(w => w.style.opacity = dim);
+    $('t1').style.opacity = Math.min($('t1').style.opacity, dim); $('t2').style.opacity = Math.min($('t2').style.opacity, dim);
+    $('psvg').style.opacity = dim;
+    L1[3].style.opacity = t > 29.25 ? 0 : 1; L2[3].style.opacity = t > 29.25 ? 0 : 1;
+  }
+
+  /* BIG WORDS: fly from proverb (29.25) → split → klang → finale */
+  const A = $('wA'), B = $('wB');
+  const posA = [540, 480], posB = [540, 1150];         // split layout
+  const kA = [540, 640], kB = [540, 950];              // klang layout (stacked)
+  const fA = [540, 430], fB = [540, 1140];             // worlds apart
+  const zA = [540, 760];                               // finale centre
+  let ax, ay, as, bx, by, bs;
+  if (t < 29.25) { show(A, 0); show(B, 0); }
+  else {
+    const fl = P(t, 29.25, 30.1, Ease.inO);
+    const sa = G.L1[3], sb = G.L2[3];
+    ax = lerp(sa.cx, posA[0], fl); ay = lerp(sa.cy, posA[1], fl); as = lerp(100 / 170, 1, fl);
+    bx = lerp(sb.cx, posB[0], fl); by = lerp(sb.cy, posB[1], fl); bs = lerp(100 / 170, 1, fl);
+    const k = P(t, 41.4, 42.4, Ease.inO);              // to stacked
+    ax = lerp(ax, kA[0], k); ay = lerp(ay, kA[1], k); bx = lerp(bx, kB[0], k); by = lerp(by, kB[1], k);
+    const ap = P(t, 47.0, 48.6, Ease.inO);             // drift apart
+    ay = lerp(ay, fA[1], ap); by = lerp(by, fB[1], ap);
+    const fz = P(t, 50.9, 52.2, Ease.inO);              // finale
+    ay = lerp(ay, zA[1], fz); as *= 1 + .18 * fz; by = lerp(by, 1180, fz); bs *= 1 - .25 * fz;
+    // pulses when spoken
+    const pa = Math.sin(clamp((t - 43.06) / .7) * Math.PI), pb = Math.sin(clamp((t - 44.22) / .8) * Math.PI);
+    const pz = Math.sin(clamp((t - 54.3) / .7) * Math.PI);
+    // fool's word jitters while making excuses
+    const jit = t > 33.7 && t < 41.3 ? Math.sin(t * 31) * 3 : 0;
+    const aOut = 1 - P(t, 56.9, 57.5);
+    place(A, ax, ay, as * (1 + .14 * pa + .1 * pz), aOut);
+    place(B, bx + jit, by, bs * (1 + .14 * pb), 1, `rotate(${jit * .6}deg)`);
+    A.style.visibility = B.style.visibility = 'visible';
+    // glow for "kurz zugeben"
+    A.style.textShadow = `0 0 ${30 * P(t, 54.3, 54.8) * (1 - P(t, 56.0, 57.0))}px rgba(47,107,58,.55)`;
+    // dissolve the fool's word: "nicht philosophieren"
+    const dz = P(t, 55.7, 56.7, Ease.lin);
+    if (dz > 0) { B.style.filter = 'url(#dissolve)'; $('dmap').setAttribute('scale', (dz * 140).toFixed(1)); $('dblur').setAttribute('stdDeviation', (dz * 6).toFixed(2)); B.style.opacity = 1 - Ease.in(dz); }
+    else { B.style.filter = 'none'; }
+    if (t > 56.75) show(B, 0);
+    // transliterations under the stacked words
+    const trO = Math.min(1 - P(t, 50.7, 51.2), 1);
+    place($('trA'), ax, ay + 135, 1, P(t, 43.06, 43.5) * trO);
+    place($('trB'), bx, by + 135, 1, P(t, 44.22, 44.66) * trO);
+    for (const id of ['trA', 'trB']) { const b = $(id).querySelector('b'); const h = P(t, 45.4, 45.9); b.style.color = h > 0 ? `rgba(176,138,62,${h})` : ''; b.style.textDecoration = h > .5 ? 'underline' : 'none'; b.style.textDecorationThickness = '4px'; b.style.textUnderlineOffset = '10px'; }
+    place($('labA'), 540, ay - 150, 1, P(t, 48.76, 49.2) * (1 - P(t, 50.7, 51.2)));
+    place($('labB'), 540, by + 220, 1, P(t, 49.84, 50.2) * (1 - P(t, 50.7, 51.2)));
+    // double arrow between the two worlds
+    $('ksvg').style.opacity = 1 - P(t, 50.7, 51.2);
+    setDraw(G.arrow, P(t, 47.9, 48.7));
+    G.arrow.setAttribute('d', `M540 ${ay + 120} L540 ${by - 110} M515 ${ay + 150} L540 ${ay + 120} L565 ${ay + 150} M515 ${by - 140} L540 ${by - 110} L565 ${by - 140}`);
+    G.arrow._len = null;
+  }
+  for (const id of ['trA', 'trB', 'labA', 'labB']) if (t < 29) show($(id), 0);
+  if (t < 47.5) $('ksvg').style.opacity = 0;
+
+  /* dust particles */
+  const dz2 = clamp((t - 55.75) / 1.3);
+  dust.forEach(p => { const q = clamp((dz2 - p.d) / (1 - p.d)); const on = q > 0 && q < 1; p.el.style.opacity = on ? (1 - q) * .9 : 0;
+    p.el.style.left = (540 + p.ox + p.vx * q * 1.4) + 'px'; p.el.style.top = (1180 + p.oy + p.vy * q * 1.4) + 'px'; });
+
+  /* SPLIT 29.4 – 41.8 */
+  const spO = P(t, 29.5, 30.1) * (1 - P(t, 41.2, 41.8));
+  show($('split'), spO);
+  if (spO > 0) {
+    setDraw(G.divider, P(t, 29.6, 30.3));
+    $('labTop').style.opacity = P(t, 30.3, 30.7); $('labBot').style.opacity = P(t, 33.68, 34.1);
+    setDraw(G.check, P(t, 31.7, 32.15));
+    const st = P(t, 32.68, 32.9, Ease.back), so = t >= 32.68 ? 1 : 0;
+    $('stampDone').style.opacity = so; $('stampDone').style.transform = `rotate(-8deg) scale(${lerp(1.9, 1, st)})`;
+    slipEls.forEach((d, i) => { const t0 = SLIPS[i][1]; const p = P(t, t0, t0 + .28, Ease.back); const out = P(t, 41.0 + i * .03, 41.5 + i * .03);
+      d.style.opacity = (t >= t0 ? 1 : 0) * (1 - out);
+      d.style.transform = `translateY(${out * 60}px) rotate(${d._rot + Math.sin(t * 5 + i) * 1.8}deg) scale(${lerp(.3, 1, p)})`; });
+    stampEls.forEach((d, i) => { const t0 = STAMPS[i][1]; const p = P(t, t0, t0 + .2, Ease.back); const out = P(t, 41.0, 41.45);
+      d.style.opacity = (t >= t0 ? 1 : 0) * (1 - out);
+      d.style.transform = `rotate(${d._rot}deg) scale(${lerp(2.0, 1, p) * (1 - .1 * out)})`; });
+    // the wise top half stays calm and fades its stamp when chaos starts
+    $('stampDone').style.opacity = so * (1 - .55 * P(t, 34.0, 34.6)) * (1 - P(t, 41.0, 41.4));
+    $('ssvg').style.opacity = 1 - P(t, 41.0, 41.4);
+  }
+
+  /* CTA 57.1 – 67.3 */
+  const ctaO = P(t, 57.1, 57.6) * (1 - P(t, 66.9, 67.3));
+  show($('cta'), ctaO);
+  if (ctaO > 0) {
+    $('cp1').style.opacity = P(t, 57.2, 57.9); $('cp2').style.opacity = P(t, 57.6, 58.3);
+    rtlMask($('cp1'), P(t, 57.2, 58.4, Ease.lin)); rtlMask($('cp2'), P(t, 57.7, 58.9, Ease.lin));
+    const cl = P(t, 61.46, 61.9); $('ctaLine').style.opacity = cl; $('ctaLine').style.transform = `translateY(${(1 - cl) * 30}px)`;
+    const fb = P(t, 63.32, 63.62, Ease.back); const tap = Math.sin(clamp((t - 64.7) / .3) * Math.PI);
+    $('follow').style.opacity = t >= 63.32 ? 1 : 0; $('follow').style.transform = `scale(${lerp(.4, 1, fb) * (1 - .08 * tap)})`;
+    const done = t > 64.85; $('followTxt').textContent = done ? '✓ Gefolgt' : '+ Folgen';
+    $('follow').style.background = done ? 'var(--green)' : 'var(--ink)';
+    $('ctaSub').style.opacity = P(t, 63.6, 64.0);
+  }
+
+  /* OUTRO 67.1 – end */
+  const ouO = P(t, 67.1, 67.35);
+  show($('outro'), ouO);
+  if (ouO > 0) { rtlMask($('salam'), P(t, 67.3, 68.3, Ease.lin)); $('salamTr').style.opacity = P(t, 67.8, 68.2); }
+  const cv = P(t, 68.35, 69.0, Ease.inO);
+  $('cover').style.display = t > 68.3 ? 'block' : 'none';
+  $('cover').style.transform = `perspective(1800px) rotateY(${lerp(-100, 0, cv)}deg)`;
+  $('black').style.opacity = P(t, 69.0, 69.3);
+
+  renderCaption(t);
+};
+
+window.ready = (async () => { await document.fonts.ready; await Promise.all([...document.fonts].map(f => f.load().catch(() => {}))); measure(); renderAt(0); return true; })();
+</script>
+</body>
+</html>
