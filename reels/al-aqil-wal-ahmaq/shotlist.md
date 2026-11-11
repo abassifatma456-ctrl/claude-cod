@@ -36,6 +36,8 @@ Zeitstempel = Sprachblöcke aus der Pausen-Analyse der Aufnahme.
 | 67,3–69,3 | Wassalāmu ʿalaikum | وَالسَّلَامُ عَلَيْكُمْ in Kalligrafie, Buch klappt zu, Fade to black | Buch zuklappen, Ambience fadet aus |
 
 ## Look
-- Palette: Papierbeige, Tintenschwarz, Akzent Gold-Grün (العاقل/تأسف) vs. Rot (الأحمق/تفلسف)
+- Palette: Malakah-Design-System – Tiefgrün #12372D, Anthrazit #25231F, Elfenbein #F3EDE0, Altgold #B69A67 (nur Akzent, nie Text auf Elfenbein), Sandton #D5C8B1
+- Schriften: Amiri (Arabisch), EB Garamond (Deutsch)
+- Farbdramaturgie: Spruch auf Elfenbein in Tiefgrün; Törichter-Hälfte auf Anthrazit; CTA + Outro auf Tiefgrün mit Altgold, goldene Wischlinie als Übergang; Schluss-Cover مَلَكَةٌ · MALAKAH INSTITUT
 - Deutsche Untertitel durchgehend eingebrannt (viele schauen stumm), große Schrift, Safe Zone: unteres Fünftel und rechten Rand frei lassen
 - Ton: keine Musik. Grundlage ist eine leise Raum-Ambience (Schreibstube: Raumrauschen, gelegentliches Papier), dazu Foley: Feder, Tinte, Papier, Stempel, Buch
