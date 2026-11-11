@@ -1,5 +1,5 @@
 import React from 'react';
-import {AbsoluteFill, interpolate, Sequence, useCurrentFrame} from 'remotion';
+import {AbsoluteFill, Img, interpolate, Sequence, staticFile, useCurrentFrame} from 'remotion';
 import {f, T} from '../timing';
 import {C, EASE, EASE_OUT, FONT_AR, FONT_DE, H, SAFE, W} from '../theme';
 
@@ -123,6 +123,7 @@ export const Subtitles: React.FC = () => {
   const sub = T.subtitles.find((s) => t >= s.start - 0.1 && t < s.end + 0.15);
   if (!sub) return null;
   const op = Math.min(ramp(frame, f(sub.start) - 3, 6), 1 - ramp(frame, f(sub.end), 6));
+  const light = T.scenes.some((s) => s.light && t >= s.start && t < s.end);
   return (
     <AbsoluteFill style={{justifyContent: 'flex-start', alignItems: 'center'}}>
       <div
@@ -136,7 +137,7 @@ export const Subtitles: React.FC = () => {
           textWrap: 'balance',
         }}
       >
-        <De size={50} color={C.ivory} style={{textShadow: '0 2px 12px rgba(0,0,0,0.35)'}}>
+        <De size={50} color={light ? C.green : C.ivory} style={{textShadow: light ? 'none' : '0 2px 12px rgba(0,0,0,0.35)'}}>
           {sub.text}
         </De>
       </div>
@@ -144,16 +145,17 @@ export const Subtitles: React.FC = () => {
   );
 };
 
-/** Logo watermark, top right, ~30 % opacity (placeholder until the PNG arrives). */
-export const Watermark: React.FC<{from: number}> = ({from}) => {
+export const LOGO = 'logo/malakah_logo_gold.png';
+
+/** Logo watermark, top right, ~30 % opacity; hidden again from `until`. */
+export const Watermark: React.FC<{from: number; until: number}> = ({from, until}) => {
   const frame = useCurrentFrame();
-  const op = 0.3 * ramp(frame, from, 20);
+  const op = 0.3 * Math.min(ramp(frame, from, 20), 1 - ramp(frame, until - 10, 10));
   return (
-    <div style={{position: 'absolute', top: SAFE.y - 10, right: SAFE.x, opacity: op, textAlign: 'center'}}>
-      <Ar size={64} color={C.gold} style={{lineHeight: 1.6, display: 'block'}}>
-        مَلَكَةٌ
-      </Ar>
-    </div>
+    <Img
+      src={staticFile(LOGO)}
+      style={{position: 'absolute', top: SAFE.y - 20, right: SAFE.x - 10, height: 150, opacity: op}}
+    />
   );
 };
 

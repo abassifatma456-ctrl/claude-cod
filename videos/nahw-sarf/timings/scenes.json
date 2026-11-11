@@ -45,19 +45,26 @@
       "id": "s7_skala",
       "start": 52.08,
       "end": 61.0,
-      "first": "فلا بد لطالب القرآن"
+      "first": "فلا بد لطالب القرآن",
+      "light": true
     },
     {
       "id": "s8_warnung",
       "start": 61.0,
-      "end": 70.5,
+      "end": 67.9,
       "first": "من كان حاله كذلك قد يخطئ"
     },
     {
+      "id": "s8b_vers",
+      "start": 67.9,
+      "end": 72.45,
+      "first": "ويغير المعاني … فانتبهوا لذلك"
+    },
+    {
       "id": "s9_tatbiq",
-      "start": 70.5,
+      "start": 72.45,
       "end": 77.95,
-      "first": "فانتبهوا لذلك بارك الله فيكم"
+      "first": "(ohne Ton) Taṭbīq-Übung"
     }
   ],
   "cues": {
@@ -72,7 +79,33 @@
     "s3_lafz": 16.76,
     "s3_recap_damma": 18.56,
     "s3_recap_fatha": 19.92,
-    "s3_recap_kasra": 20.98
+    "s3_recap_kasra": 20.98,
+    "s4_position": 25.2,
+    "s4_siegel": 27.72,
+    "s5_kataba": 34.84,
+    "s5_wazn1": 36.05,
+    "s5_faala": 36.6,
+    "s5_samia": 38.52,
+    "s5_wazn2": 39.28,
+    "s5_faila": 39.76,
+    "s5_asliya": 41.13,
+    "s6_yasmau": 42.74,
+    "s6_wazn": 44.16,
+    "s6_yafalu": 44.52,
+    "s6_ya": 46.04,
+    "s6_fa": 49.12,
+    "s6_ain": 49.6,
+    "s6_lam": 50.02,
+    "s6_asliya": 50.82,
+    "s7_sibawaih": 54.9,
+    "s7_adam": 57.6,
+    "s7_mitte": 58.9,
+    "s8_fehler": 63.1,
+    "s8_hin": 64.28,
+    "s8_rueck": 66.22,
+    "s8b_vers": 68.03,
+    "s8b_falsch": 69.0,
+    "s8b_richtig": 70.5
   },
   "credit": {
     "start": 0.4,

@@ -1,7 +1,7 @@
 import data from '../timings/scenes.json';
 import {FPS} from './theme';
 
-export type Scene = {id: string; start: number; end: number; first?: string};
+export type Scene = {id: string; start: number; end: number; first?: string; light?: boolean};
 export type Subtitle = {start: number; end: number; text: string};
 
 export const T = data as unknown as {
