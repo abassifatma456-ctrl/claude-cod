@@ -1,10 +1,10 @@
-# Shotlist & Sounddesign – synchronisiert auf Aufnahme v1 (58,5 s)
+# Shotlist & Sounddesign – synchronisiert auf Aufnahme v2 (69,3 s)
 
 Zeitstempel = Sprachblöcke aus der Pausen-Analyse der Aufnahme.
 
 ## Vorab fixen
-1. CTA ist abgeschnitten (endet bei 58,5 s mitten in „Hinter arabischen Sprich…") → Ende neu einsprechen / Export verlängern.
-2. Bild zeigt noch أذا → إِذَا korrigieren.
+1. ~~CTA abgeschnitten~~ → in v2 behoben (CTA vollständig + Salām).
+2. Bild zeigt noch أذا → إِذَا korrigieren. Die Zeichen über أخطأ wirken wie Ḍamma (أُخْطِئَ = Passiv) → richtig: أَخْطَأَ / تَأَسَّفَ / تَفَلْسَفَ.
 3. Querformat-Bild im 9:16-Rahmen → ~70 % schwarze Balken. Papiertextur bildfüllend + Bild skalieren.
 4. Lautheit −26 LUFS → auf ca. −14 LUFS normalisieren; Ambience ca. 25 dB unter der Stimme.
 
@@ -32,7 +32,8 @@ Zeitstempel = Sprachblöcke aus der Pausen-Analyse der Aufnahme.
 | 45,5–50,4 | Fast dasselbe Wort … Welten zwischen Einsicht und Ausrede. | Wörter driften auseinander, „Einsicht" / „Ausrede" darunter | langer, weicher Luftzug |
 | 51,3–55,2 | Also … kurz zugeben, | تأسف rückt in die Mitte | – |
 | 55,7–56,6 | nicht philosophieren. | تفلسف zerfällt zu Tinte/Staub | Papier-Crumble |
-| 57,4–Ende | CTA | Logo + Follow-Button mit Bounce, Spruch klein im Hintergrund | Seite umblättern, zum Schluss Buch zuklappen; Ambience fadet aus |
+| 57,4–67,2 | CTA | Logo + Follow-Button mit Bounce, Spruch klein im Hintergrund | Seite umblättern |
+| 67,3–69,3 | Wassalāmu ʿalaikum | وَالسَّلَامُ عَلَيْكُمْ in Kalligrafie, Buch klappt zu, Fade to black | Buch zuklappen, Ambience fadet aus |
 
 ## Look
 - Palette: Papierbeige, Tintenschwarz, Akzent Gold-Grün (العاقل/تأسف) vs. Rot (الأحمق/تفلسف)
